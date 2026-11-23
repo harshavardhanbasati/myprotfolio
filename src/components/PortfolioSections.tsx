@@ -25,6 +25,17 @@ const experience = [
 
 const projects = [
   {
+    name: "ServiceZone",
+    date: "Full-stack platform",
+    details: [
+      "Built an appointment booking and repair-management platform for a computer and laptop service center.",
+      "Includes a customer portal for service discovery, appointment scheduling, and repair progress tracking.",
+      "Provides an operations dashboard for appointment management, service catalog updates, and repair workflows.",
+    ],
+    skills: ["React", "FastAPI", "SQLite", "PostgreSQL", "Vite", "Tailwind CSS"],
+    url: "https://github.com/harshavardhanbasati/ServiceZone",
+  },
+  {
     name: "Live Weather Report Website",
     date: "2026",
     details: [
@@ -33,6 +44,7 @@ const projects = [
       "Containerized the application with Docker for consistent setup and deployment.",
     ],
     skills: ["React", "Open-Meteo API", "Redis", "Docker"],
+    url: "https://github.com/harshavardhanbasati",
   },
   {
     name: "Hotel Reservation System",
@@ -43,6 +55,7 @@ const projects = [
       "Built CRUD operations for customer records on a normalized rooms, bookings, and customers schema.",
     ],
     skills: ["Core Java", "JDBC", "MySQL"],
+    url: "https://github.com/harshavardhanbasati",
   },
   {
     name: "Employee Tracker",
@@ -53,6 +66,7 @@ const projects = [
       "Structured the code into reusable parts to keep the application maintainable.",
     ],
     skills: ["CRUD", "Modular code"],
+    url: "https://github.com/harshavardhanbasati",
   },
 ];
 
@@ -159,7 +173,7 @@ function PortfolioSections() {
               </ul>
               <a
                 className="project-link"
-                href="https://github.com/harshavardhanbasati"
+                href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
               >
