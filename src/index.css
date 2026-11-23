@@ -19,7 +19,6 @@
 }
 
 body {
-  min-width: 320px;
   margin: 0;
 }
 
@@ -711,13 +710,27 @@ textarea:focus-visible {
 
 @media (max-width: 880px) {
   .nav {
-    align-items: flex-start;
-    padding-block: 14px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    gap: 12px;
+    padding-block: 10px;
   }
 
   .nav-actions {
-    justify-content: flex-end;
-    flex-wrap: wrap;
+    display: contents;
+  }
+
+  .nav-links {
+    min-width: 0;
+    flex-wrap: nowrap;
+    gap: clamp(10px, 2vw, 18px);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+
+  .nav-links a {
+    flex: 0 0 auto;
   }
 
   .hero {
@@ -741,34 +754,22 @@ textarea:focus-visible {
   }
 
   .nav {
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px;
   }
 
-  .nav-actions {
-    flex: 1;
-    gap: 10px;
+  .resume-link {
+    justify-self: end;
   }
 
   .nav-links {
-    order: 2;
-    width: 100%;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 19px;
-    overflow-x: auto;
-    padding: 5px 0 2px;
-    scrollbar-width: thin;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    padding: 4px 2px 6px;
   }
 
   .nav-links a {
-    flex: 0 0 auto;
     font-size: 0.82rem;
-  }
-
-  .theme-toggle {
-    margin-left: auto;
   }
 
   .theme-label {
