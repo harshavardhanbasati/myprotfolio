@@ -1,34 +1,55 @@
+type NavBarProps = {
+  theme: "dark" | "light";
+  onToggleTheme: () => void;
+};
+
 const navLinks = [
-    {label: "About", href: "#about"},
-    {label: "Skills", href: "skills"},
-    {label: "Projects", href: "#projects"},
-    {label: "Contact", href: "#contact"},
+  { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Education", href: "#education" },
+  { label: "Contact", href: "#contact" },
 ];
 
-function NavBar(){
-    return(
-        <header className="ticky top-0 z-50 border-b border-zinc-200/80 bg-white/90 backdrop-blur-md">
-            <nav
-            aria-label="Main navigation"
-            className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px- py-4">
-                <a href="#home"
-                className="text-lg font-bold tracking-light text-zinc-900">
-                    HS<span className="text-indigo-600">.</span>
-                </a>
-                <div
-                className="flex flex-wrap items-center gap-x-5 gap-y-2">
-                    {navLinks.map((link)=>(
-                        <a
-                        key={link.href} 
-                        href={link.href}
-                        className="text-sm font-medium text-zinc-600 transition hover:text-indigo-600"
-                        >
-                            {link.label}
-                        </a>
-                        ))}
-                </div>
-            </nav>
-        </header>
-    );
+function NavBar({ theme, onToggleTheme }: NavBarProps) {
+  return (
+    <header className="site-header" id="top">
+      <nav className="container nav" aria-label="Primary">
+        <a href="#top" className="brand" aria-label="Harsha, home">
+          HV<span>.</span>
+        </a>
+        <div className="nav-actions">
+          <div className="nav-links">
+            {navLinks.map((link) => (
+              <a key={link.href} href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <a
+            className="btn btn-small resume-link"
+            href="/Harsha_Vardhan_Basati_Resume.pdf"
+            download="Harsha_Vardhan_Basati_Resume.pdf"
+          >
+            Resume
+          </a>
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={onToggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+          >
+            <span aria-hidden="true">{theme === "dark" ? "☀" : "☾"}</span>
+            <span className="theme-label">
+              {theme === "dark" ? "Light" : "Dark"}
+            </span>
+          </button>
+        </div>
+      </nav>
+    </header>
+  );
 }
+
 export default NavBar;

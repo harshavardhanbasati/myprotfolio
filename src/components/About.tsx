@@ -1,66 +1,59 @@
+const facts = [
+  { label: "Location", value: "Hyderabad, Telangana, India" },
+  { label: "Degree", value: "B.Tech, Computer Science & Engineering" },
+  { label: "Currently", value: "Application Developer Intern" },
+  { label: "Looking for", value: "Entry-level software engineering roles" },
+];
+
+const learningTimeline = [
+  { year: "2023", detail: "Started learning Python." },
+  { year: "2026", detail: "Core Java, JDBC, and MySQL." },
+  {
+    year: "Aug 2026 – now",
+    detail:
+      "Application development with FastAPI, PostgreSQL, Git, Linux, React, Docker, and Redis.",
+  },
+];
+
 function About() {
   return (
-    <section
-      id="about"
-      className="border-t border-zinc-200 bg-white px-6 py-20 sm:py-28"
-    >
-      <div className="mx-auto max-w-6xl">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-600">
-          About me
-        </p>
-
-        <div className="mt-5 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
-          <div>
-            <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
-              Learning, building, and improving one project at a time.
-            </h2>
-
-            <p className="mt-6 max-w-2xl text-base leading-8 text-zinc-600">
-              I'm Harsha Vardhan, a Computer Science graduate with a
-              B.Tech in CSE from Swarna Bharati Institute of Science
-              and Technology. I'm an Application Developer Intern at
-              Resolence, working with Python, APIs, and PostgreSQL.</p>
-
-            <p className="mt-4 max-w-2xl text-base leading-8 text-zinc-600">
-             My experience spans React, Java, Python, relational
-             databases, and machine learning projects. I enjoy learning
-             new technologies, building practical applications, and
-             improving my skills as a software developer.             </p>
-
-            <p className="mt-4 max-w-2xl text-base leading-8 text-zinc-600">
-              I've explored React, TypeScript, JavaScript, Python, Java,
-              PostgreSQL, Django, and FastAPI through learning and project
-              work. I'm continuing to strengthen my fundamentals by
-              building projects and improving my problem-solving skills.
-            </p>
-          </div>
-
-          <div className="grid content-start gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
-              <p className="text-sm font-medium text-zinc-500">
-                Education
-              </p>
-              <h3 className="mt-2 text-lg font-semibold text-zinc-900">
-                B.Tech — Computer Science
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-zinc-600">
-                Swarna Bharathi Institute of Science and Technology
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
-              <p className="text-sm font-medium text-zinc-500">
-                Career focus
-              </p>
-              <h3 className="mt-2 text-lg font-semibold text-zinc-900">
-                Full-Stack Development
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-zinc-600">
-                Building responsive interfaces, backend APIs, and
-                database-driven applications.
-              </p>
-            </div>
-          </div>
+    <section className="section container" id="about">
+      <h2 className="section-title">
+        <span>01.</span> About Me
+      </h2>
+      <div className="about-grid">
+        <div className="about-text">
+          <p>
+            I&apos;m a Computer Science graduate (B.Tech, 2026) and Application
+            Developer Intern with hands-on experience across Python, Java, and
+            React. I work with relational databases, APIs, and containerized
+            deployment, and I&apos;m comfortable with version control and
+            collaborative development.
+          </p>
+          <p>
+            I&apos;m currently building with Python, FastAPI, and PostgreSQL
+            while exploring new technologies. I&apos;m open to working in any
+            language or stack and eager to grow as a software engineer.
+          </p>
+          <ul className="facts">
+            {facts.map((fact) => (
+              <li key={fact.label}>
+                <strong>{fact.label}</strong>
+                {fact.value}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 className="subhead">Continuous Learning</h3>
+          <ol className="timeline">
+            {learningTimeline.map((item) => (
+              <li key={item.year}>
+                <span className="year">{item.year}</span>
+                <p>{item.detail}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
