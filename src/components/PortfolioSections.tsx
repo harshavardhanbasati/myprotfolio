@@ -1,4 +1,6 @@
-import type { FormEvent } from "react";
+import { useState, type FormEvent } from "react";
+
+const WEB3FORMS_ACCESS_KEY = "b9d9b9eb-a1b4-4575-885e-95a83c317360";
 
 const experience = [
   {
@@ -105,19 +107,58 @@ const skillGroups = [
   },
 ];
 
-function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
-  event.preventDefault();
-  const formData = new FormData(event.currentTarget);
-  const name = String(formData.get("name") ?? "").trim();
-  const email = String(formData.get("email") ?? "").trim();
-  const message = String(formData.get("message") ?? "").trim();
-  const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
-  const body = encodeURIComponent(`${message}\n\nFrom: ${name} <${email}>`);
+type ContactSubmissionStatus = {
+  type: "success" | "error";
+  message: string;
+};
 
-  window.location.href = `mailto:harshavardhanbasati2004@gmail.com?subject=${subject}&body=${body}`;
+async function submitContactForm(
+  event: FormEvent<HTMLFormElement>,
+  setStatus: (status: ContactSubmissionStatus | null) => void,
+  setIsSubmitting: (isSubmitting: boolean) => void,
+) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+  formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+  setIsSubmitting(true);
+  setStatus(null);
+
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData,
+    });
+    const data: { success?: boolean; message?: string } = await response.json();
+
+    if (!response.ok || !data.success) {
+      setStatus({
+        type: "error",
+        message: data.message || "Your message could not be sent. Please try again.",
+      });
+      return;
+    }
+
+    form.reset();
+    setStatus({
+      type: "success",
+      message: "Thanks! Your message has been sent.",
+    });
+  } catch {
+    setStatus({
+      type: "error",
+      message: "Something went wrong. Please check your connection and try again.",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
 }
 
 function PortfolioSections() {
+  const [submissionStatus, setSubmissionStatus] =
+    useState<ContactSubmissionStatus | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   return (
     <>
       <section className="section container" id="experience">
@@ -256,7 +297,12 @@ function PortfolioSections() {
           message.
         </p>
         <div className="contact-grid">
-          <form className="card form" onSubmit={handleContactSubmit}>
+          <form
+            className="card form"
+            onSubmit={(event) =>
+              void submitContactForm(event, setSubmissionStatus, setIsSubmitting)
+            }
+          >
             <label htmlFor="contact-name">Name</label>
             <input
               id="contact-name"
@@ -275,12 +321,17 @@ function PortfolioSections() {
             />
             <label htmlFor="contact-message">Message</label>
             <textarea id="contact-message" name="message" rows={5} required />
-            <button className="btn" type="submit">
-              Send Message
+            <button className="btn" type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
-            <p className="form-note">
-              This opens your email app with the message pre-filled.
-            </p>
+            {submissionStatus ? (
+              <p
+                className="form-note"
+                role={submissionStatus.type === "error" ? "alert" : "status"}
+              >
+                {submissionStatus.message}
+              </p>
+            ) : null}
           </form>
           <aside className="card contact-info">
             <h3>Find me online</h3>
